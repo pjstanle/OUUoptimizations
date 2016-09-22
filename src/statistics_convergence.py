@@ -29,7 +29,7 @@ def run(method_dict):
     std = []
     samples = []
 
-    for n in range(5,6,1):
+    for n in range(100,101,1):
 
         ### Set up the wind speeds and wind directions for the problem ###
 
@@ -55,6 +55,13 @@ def run(method_dict):
 
         # Turbines layout
         turbineX, turbineY = windfarm_setup.getLayout(method_dict['layout'])
+        filename = "layout_1_5_XY.txt"
+
+        optimized = open(filename)
+        x_y = np.loadtxt(optimized)
+
+        turbineX = x_y[:,0]
+        turbineY = x_y[:,1]
 
         # turbine size and operating conditions
 
@@ -121,9 +128,10 @@ def run(method_dict):
            'windspeeds': windspeeds.tolist(), 'power': power.tolist(),
            'method': method_dict['method'], 'uncertain_variable': method_dict['uncertain_var'],
            'layout': method_dict['layout']}
-    jsonfile = open('record.json','w')
-    json.dump(obj, jsonfile, indent=2)
-    jsonfile.close()
+
+    # jsonfile = open('record.json','w')
+    # json.dump(obj, jsonfile, indent=2)
+    # jsonfile.close()
 
     # fig, ax = plt.subplots()
     # #ax.plot(windspeeds, power)
@@ -176,9 +184,9 @@ if __name__ == "__main__":
     # Specify the rest of arguments
     # method_dict = {}
     method_dict = vars(args)  # Start a dictionary with the arguments specified in the command line
-    method_dict['method']           = 'dakota'
+    method_dict['method']           = 'rect'
     method_dict['uncertain_var']    = 'direction'
-    # method_dict['layout']           = 'optimized'  # Now this is specified in the command line
+    method_dict['layout']           = 'layout3'  # Now this is specified in the command line
     method_dict['dakota_filename'] = 'dakotageneral.in'
     # To Do specify the number of points (directions or speeds) as an option as well.
 
@@ -195,5 +203,3 @@ if __name__ == "__main__":
     # Run the problem
     run(method_dict)
     # plot()
-
-

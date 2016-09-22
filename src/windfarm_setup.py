@@ -3,7 +3,6 @@ import numpy as np
 from getSamplePoints import getSamplePoints
 from dakotaInterface import updateDakotaFile
 
-
 def getPoints(method_dict, n):
 
     method = method_dict['method']
@@ -33,6 +32,7 @@ def getPoints(method_dict, n):
         C = 225  # Location of max probability
         r = b-a  # original range
         R = r - (B-A) # modified range
+
 
         # Modify with offset, manually choose the offset you want
         N = method_dict['Noffset']  # N = 10

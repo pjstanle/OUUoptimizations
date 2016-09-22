@@ -185,20 +185,20 @@ def getWeibull():
     weibull_dist = Weibull()
     return weibull_dist
 
-
 def getWindRose():
 
     amalia_wind_rose = amaliaWindRose()
     # amalia_wind_rose = amaliaWindRoseRaw()  # Using this option needs updating
 
     # Set the necessary functions to construct a chaospy distribution
+    
     windRose = cp.construct(
         cdf=lambda self, x: amalia_wind_rose.cdf(x),
         bnd=lambda self: amalia_wind_rose.bnd(),
         pdf=lambda self, x: amalia_wind_rose.pdf(x),
         str=lambda self: amalia_wind_rose.str()
     )
-
+    
     windrose_dist = windRose()
     # print windrose_dist
     # print windrose_dist.pdf(180)
